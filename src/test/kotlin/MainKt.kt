@@ -1,18 +1,27 @@
+// следует следить откуда импортируются модули
 import data.Priority
 import data.Task
+import data.TasksRepository
 import data.TasksRepositoryMemory
+import io.qameta.allure.Description
 import io.qameta.allure.Owner
-import jdk.jfr.Description
+//import jdk.jfr.Description
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
+// Ecли уж подключили  junit.jupiter , то стоит весь инструмент брать из него
+//import kotlin.test.AfterTest
+//import kotlin.test.BeforeTest
+//import kotlin.test.assertEquals
+//import kotlin.test.assertNotEquals
 
-@Description ("Test class")
+//@Description("Test class")
 class MainTest {
-    lateinit var tasks: TasksRepositoryMemory
+   // private lateinit var tasks: TasksRepositoryMemory
+    private lateinit var tasks: TasksRepository
 
     private val testTask = Task(id = 0, name = "Test Task", Priority.HIGH, completed = false)
 
@@ -25,11 +34,14 @@ class MainTest {
         Task(id = 6, name = "HIGH TASK COMPLITE", Priority.HIGH,completed = true)
     )
 
-    @BeforeTest
+    //@BeforeTest
+    @BeforeEach
     fun beforeALLTest() {
         tasks = TasksRepositoryMemory()
     }
-    @AfterTest
+
+    //@AfterTest
+    @AfterEach
     fun afterAllTest() {
         println("All test complite.")
     }
@@ -63,6 +75,7 @@ class MainTest {
         assertNotEquals(listOfTaskCompletedSize,taskComplete)
     }
 
+    // сделано, но не совсем нужная проверка - ошибка в задании
 
     @Description("Проверка сортировки задач по наименованию")
     @DisplayName("Тестирование сортировки задач по наименованию")
